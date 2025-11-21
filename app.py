@@ -11,19 +11,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000"
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # List of allowed origins
+    allow_origins=["*"],  # List of allowed origins
     allow_credentials=True,
     allow_methods=["*"],  # Allows GET, POST, PUT, DELETE, etc.
     allow_headers=["*"],  # Allows all headers
 )
-
 
 class BreastCancerCNN(nn.Module):
     def __init__(self, num_classes=3):  # update to match config.NUM_CLASSES if different
@@ -53,9 +47,7 @@ class BreastCancerCNN(nn.Module):
 
     def forward(self, x):
         return self.backbone(x)
-
-
-# ✅ Instantiate model
+# initialize model
 model = BreastCancerCNN(num_classes=3)
 num_classes = 3 # 'benigno', 'normal', 'maligno'
 
